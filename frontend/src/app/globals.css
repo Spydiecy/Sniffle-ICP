@@ -4,12 +4,12 @@
 
 :root {
   --foreground-rgb: 26, 26, 26;
-  --background-rgb: 240, 249, 249;
-  --icp-teal: 41, 182, 175;
-  --icp-teal-light: 61, 219, 217;
-  --icp-teal-dark: 30, 158, 152;
-  --icp-gradient-start: 41, 182, 175;
-  --icp-gradient-end: 26, 127, 122;
+  --background-rgb: 248, 245, 255;
+  --solana-purple: 153, 69, 255;
+  --solana-purple-light: 176, 122, 255;
+  --solana-purple-dark: 123, 43, 249;
+  --solana-gradient-start: 153, 69, 255;
+  --solana-gradient-end: 123, 43, 249;
 }
 
 @theme inline {
@@ -32,22 +32,22 @@ body {
   font-family: 'Inter', sans-serif;
 }
 
-/* Custom dashboard background with ICP teal theme */
+/* Custom dashboard background with purple theme */
 .dashboard-bg {
-  background: linear-gradient(135deg, #f0f9f9 0%, #e0f2f1 50%, #b2dfdb 100%);
+  background: linear-gradient(135deg, #f8f5ff 0%, #e9e0ff 50%, #d0bfff 100%);
   background-image: 
-    linear-gradient(rgba(41, 182, 175, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(41, 182, 175, 0.1) 1px, transparent 1px);
+    linear-gradient(rgba(153, 69, 255, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(153, 69, 255, 0.1) 1px, transparent 1px);
   background-size: 40px 40px;
 }
 
-/* ICP button styles */
-.icp-btn {
-  background: linear-gradient(135deg, rgb(var(--icp-gradient-start)), rgb(var(--icp-teal)));
+/* Button styles */
+.btn-primary {
+  background: linear-gradient(135deg, rgb(var(--solana-gradient-start)), rgb(var(--solana-purple)));
   transition: all 0.3s ease;
 }
 
-.icp-btn:hover {
+.btn-primary:hover {
   background: linear-gradient(135deg, rgb(var(--icp-teal-light)), rgb(var(--icp-teal)));
   transform: translateY(-1px);
   box-shadow: 0 10px 25px rgba(41, 182, 175, 0.3);

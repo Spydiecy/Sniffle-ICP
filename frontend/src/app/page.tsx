@@ -676,7 +676,7 @@ export default function Home() {
                   openMultipleWindows([]);
                 }, 100);
                 }}
-                className="px-6 md:px-8 py-3 bg-solana-gradient text-white rounded-lg font-medium hover:bg-solana-gradient-hover transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-solana-purple/30"
+                className="px-6 md:px-8 py-3 bg-solana-gradient text-white rounded-lg font-medium hover:bg-solana-gradient-hover transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/30"
               >
                 Get Started
               </button>
@@ -689,7 +689,7 @@ export default function Home() {
                     toggleWindow('chat');
                   }, 100);
                 }}
-                className="px-6 md:px-8 py-3 bg-purple-100 text-solana-purple rounded-lg font-medium hover:bg-purple-200 transition-all duration-300 transform hover:scale-105 shadow-lg"
+                className="px-6 md:px-8 py-3 bg-purple-100 text-purple-700 rounded-lg font-medium hover:bg-purple-200 transition-all duration-300 transform hover:scale-105 shadow-lg"
               >
                 Chat Mode
               </button>
