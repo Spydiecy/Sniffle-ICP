@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { FaTimes, FaDog, FaChartLine, FaWallet, FaFileAlt, FaComments, FaChartBar, FaPlug, FaExpand } from 'react-icons/fa';
+// Temporarily using Solana wallet adapter until ICP wallet is implemented
 import { useWallet } from '@solana/wallet-adapter-react';
 import ChatInterface from './components/ChatInterface';
 import MemecoinsExplorer from './components/MemecoinsExplorer';
@@ -29,7 +30,7 @@ interface OpenWindow {
 }
 
 export default function Home() {
-  const { connected, publicKey, disconnect } = useWallet();
+  const { connected, publicKey, disconnect } = useWallet(); 
   const [appStarted, setAppStarted] = useState(false);
   const [chatMode, setChatMode] = useState(false);
   const [openWindows, setOpenWindows] = useState<OpenWindow[]>([]);
@@ -230,17 +231,17 @@ export default function Home() {
     };
 
     const isActive = activeWindowId === id;
-    const activeClass = isActive ? 'ring-2 ring-solana-purple' : '';
+    const activeClass = isActive ? 'ring-2 ring-icp-purple' : '';
 
     switch(id) {
       case 'dashboard':
         return (
           <div 
-            className={`bg-white rounded-xl shadow-2xl border-2 border-black overflow-hidden ${activeClass}`}
+            className={`bg-white rounded-lg shadow-xl overflow-hidden transition-all duration-300 ${activeClass}`}
             style={windowStyle}
           >
             <div 
-              className="bg-gradient-to-r from-solana-purple to-solana-purple-dark text-white p-3 flex justify-between items-center cursor-move"
+              className="bg-gradient-to-r from-icp-teal to-icp-teal-dark text-white p-3 flex justify-between items-center cursor-move"
               onMouseDown={(e) => startDrag(e, id)}
             >
               <div className="flex items-center">
@@ -260,15 +261,15 @@ export default function Home() {
             <div className="p-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Dashboard widgets */}
-                <div className="bg-gradient-to-br from-purple-100/50 to-purple-200 p-4 rounded-xl shadow-sm">
+                <div className="bg-gradient-to-br from-purple-100/50 to-purple-200 p-4 rounded-lg shadow-sm">
                   <h3 className="text-lg font-semibold text-gray-800 mb-1">Total Value</h3>
                   <p className="text-2xl font-bold text-purple-600">$0.00</p>
                 </div>
-                <div className="bg-gradient-to-br from-purple-100/50 to-purple-200 p-4 rounded-xl shadow-sm">
+                <div className="bg-gradient-to-br from-purple-100/50 to-purple-200 p-4 rounded-lg shadow-sm">
                   <h3 className="text-lg font-semibold text-gray-800 mb-1">24h Change</h3>
                   <p className="text-2xl font-bold text-green-600">+0.00%</p>
                 </div>
-                <div className="md:col-span-2 bg-gradient-to-br from-purple-100/50 to-purple-200 p-4 rounded-xl shadow-sm">
+                <div className="md:col-span-2 bg-gradient-to-br from-purple-100/50 to-purple-200 p-4 rounded-lg shadow-sm">
                   <h3 className="text-lg font-semibold text-gray-800 mb-1">Active Positions</h3>
                   <p className="text-2xl font-bold text-purple-600">0</p>
                 </div>
@@ -289,7 +290,7 @@ export default function Home() {
       case 'chat':
         return (
           <div 
-            className={`bg-white rounded-xl shadow-2xl border-2 border-black overflow-hidden ${activeClass}`}
+            className={`bg-white rounded-lg shadow-xl overflow-hidden transition-all duration-300 ${activeClass}`}
             style={{
               ...windowStyle,
               width: `${Math.max(windowData.size.width, 500)}px`,
@@ -297,7 +298,7 @@ export default function Home() {
             }}
           >
             <div 
-              className="bg-gradient-to-r from-solana-purple to-solana-purple-dark text-white p-3 flex justify-between items-center cursor-move"
+              className="bg-gradient-to-r from-icp-teal to-icp-teal-dark text-white p-3 flex justify-between items-center cursor-move"
               onMouseDown={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -341,11 +342,11 @@ export default function Home() {
       case 'memecoins':
         return (
           <div 
-            className={`bg-white rounded-xl shadow-2xl border-2 border-black overflow-hidden ${activeClass}`}
+            className={`bg-white rounded-lg shadow-xl overflow-hidden transition-all duration-300 ${activeClass}`}
             style={windowStyle}
           >
             <div 
-              className="bg-gradient-to-r from-solana-purple to-solana-purple-dark text-white p-3 flex justify-between items-center cursor-move"
+              className="bg-gradient-to-r from-icp-teal to-icp-teal-dark text-white p-3 flex justify-between items-center cursor-move"
               onMouseDown={(e) => startDrag(e, id)}
             >
               <div className="flex items-center">
@@ -380,11 +381,11 @@ export default function Home() {
       case 'stats':
         return (
           <div 
-            className={`bg-white rounded-xl shadow-2xl border-2 border-black overflow-hidden ${activeClass}`}
+            className={`bg-white rounded-lg shadow-xl overflow-hidden transition-all duration-300 ${activeClass}`}
             style={windowStyle}
           >
             <div 
-              className="bg-gradient-to-r from-solana-purple to-solana-purple-dark text-white p-3 flex justify-between items-center cursor-move"
+              className="bg-gradient-to-r from-icp-teal to-icp-teal-dark text-white p-3 flex justify-between items-center cursor-move"
               onMouseDown={(e) => startDrag(e, id)}
             >
               <div className="flex items-center">
@@ -402,11 +403,11 @@ export default function Home() {
               </button>
             </div>
             <div className="p-6">
-              <div className="bg-gradient-to-br from-purple-100/50 to-purple-200 p-4 rounded-xl shadow-sm mb-4">
+              <div className="bg-gradient-to-br from-purple-100/50 to-purple-200 p-4 rounded-lg shadow-sm mb-4">
                 <h3 className="text-lg font-semibold text-gray-800 mb-2">Top Gainers</h3>
                 <p className="text-gray-600">No data available</p>
               </div>
-              <div className="bg-gradient-to-br from-purple-100/50 to-purple-200 p-4 rounded-xl shadow-sm">
+              <div className="bg-gradient-to-br from-purple-100/50 to-purple-200 p-4 rounded-lg shadow-sm">
                 <h3 className="text-lg font-semibold text-gray-800 mb-2">Market Overview</h3>
                 <p className="text-gray-600">No data available</p>
               </div>
@@ -426,11 +427,11 @@ export default function Home() {
       case 'whitepaper':
         return (
           <div 
-            className={`bg-white rounded-xl shadow-2xl border-2 border-black overflow-hidden ${activeClass}`}
+            className={`bg-white rounded-lg shadow-xl overflow-hidden transition-all duration-300 ${activeClass}`}
             style={windowStyle}
           >
             <div 
-              className="bg-gradient-to-r from-solana-purple to-solana-purple-dark text-white p-3 flex justify-between items-center cursor-move"
+              className="bg-gradient-to-r from-icp-teal to-icp-teal-dark text-white p-3 flex justify-between items-center cursor-move"
               onMouseDown={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -452,12 +453,12 @@ export default function Home() {
               </button>
             </div>
             <div className="p-6 overflow-auto max-h-[500px]">
-              <h1 className="text-2xl font-bold text-gray-800 mb-3">Sniffle: Advanced Memecoin Intelligence System for Solana</h1>
+              <h1 className="text-2xl font-bold text-gray-800 mb-3">Sniffle: Advanced Memecoin Intelligence System for Internet Computer</h1>
               
               <h2 className="text-xl font-bold text-gray-800 mt-6 mb-3">Executive Summary</h2>
               <div className="prose prose-sm">
-                <p className="mb-3">Sniffle is a revolutionary AI-powered platform engineered specifically for the Solana ecosystem, providing traders with unprecedented early access to emerging meme tokens before significant price movements occur. By leveraging advanced AI analysis and conversational intelligence, Sniffle synthesizes sophisticated social media analytics with on-chain Solana data to identify high-potential opportunities during their inception phase, allowing users to position themselves advantageously in the market.</p>
-                <p className="mb-3">Our platform democratizes access to valuable pre-pump intelligence previously available only to well-connected insiders and sophisticated traders within the Solana ecosystem. Sniffle's unique profit-sharing business model aligns our incentives directly with user success, creating a symbiotic relationship where we only succeed when our users profit.</p>
+                <p className="mb-3">Sniffle is a revolutionary AI-powered platform engineered specifically for the Internet Computer ecosystem, providing traders with unprecedented early access to emerging meme tokens before significant price movements occur. By leveraging advanced AI analysis and conversational intelligence, Sniffle synthesizes sophisticated social media analytics with on-chain Internet Computer data to identify high-potential opportunities during their inception phase, allowing users to position themselves advantageously in the market.</p>
+                <p className="mb-3">Our platform democratizes access to valuable pre-pump intelligence previously available only to well-connected insiders and sophisticated traders within the Internet Computer ecosystem. Sniffle's unique profit-sharing business model aligns our incentives directly with user success, creating a symbiotic relationship where we only succeed when our users profit.</p>
               </div>
 
               <h2 className="text-xl font-bold text-gray-800 mt-6 mb-3">Technology Infrastructure</h2>
@@ -465,13 +466,13 @@ export default function Home() {
               <h3 className="text-lg font-semibold text-gray-800 mt-4 mb-2">Real-Time Data Acquisition Network</h3>
               <div className="prose prose-sm">
                 <ul className="list-disc pl-5 mb-4">
-                  <li><strong>Solana-Focused Social Listening:</strong> Proprietary system continuously monitors Twitter/X for early mentions of emerging Solana meme tokens</li>
+                  <li><strong>Internet Computer-Focused Social Listening:</strong> Proprietary system continuously monitors Twitter/X for early mentions of emerging Internet Computer meme tokens</li>
                   <li><strong>Advanced Filtering Matrix:</strong>
                     <ul className="list-disc pl-5 mt-1">
                       <li>Engagement threshold verification (filtering for authentic interaction patterns)</li>
                       <li>Account credibility scoring (bot detection and influence assessment)</li>
-                      <li>Solana-specific semantic analysis (context-aware keyword processing for SOL ecosystem)</li>
-                      <li>Temporal signal amplification detection (identifying organic growth patterns on Solana)</li>
+                      <li>Internet Computer-specific semantic analysis (context-aware keyword processing for ICP ecosystem)</li>
+                      <li>Temporal signal amplification detection (identifying organic growth patterns on Internet Computer)</li>
                     </ul>
                   </li>
                   <li><strong>Operational Parameters:</strong> High-frequency scanning at 3-5 minute intervals with intelligent rate limiting to ensure comprehensive coverage</li>
@@ -481,28 +482,27 @@ export default function Home() {
               <h3 className="text-lg font-semibold text-gray-800 mt-4 mb-2">Cognitive Analysis Engine</h3>
               <div className="prose prose-sm">
                 <ul className="list-disc pl-5 mb-4">
-                  <li><strong>Data Aggregation:</strong> Scraper collects Solana token data from Jupiter and other DEXs, scrapes Twitter for token-related tweets and sentiment.</li>
+                  <li><strong>Data Aggregation:</strong> Scraper collects Internet Computer token data from exchanges, scrapes Twitter for token-related tweets and sentiment.</li>
                   <li><strong>AI Analysis:</strong> Advanced ML models analyze tweets and token data, determines risk score, investment potential, and provides rationale for each token.</li>
                   <li><strong>Intelligent Agent:</strong> Answers user queries with the latest token data and in-depth analysis using Retrieval-Augmented Generation.</li>
                 </ul>
               </div>
 
-              <h2 className="text-xl font-bold text-gray-800 mt-6 mb-3">Solana Integration</h2>
+              <h2 className="text-xl font-bold text-gray-800 mt-6 mb-3">Internet Computer Integration</h2>
               <div className="prose prose-sm">
                 <ul className="list-disc pl-5 mb-4">
                   <li><strong>Network Details:</strong>
                     <ul className="list-disc pl-5 mt-1">
-                      <li>Network: Solana Devnet (Development) / Mainnet-Beta (Production)</li>
-                      <li>Native Currency: SOL</li>
-                      <li>RPC URL: api.devnet.solana.com</li>
-                      <li>Block Explorer: explorer.solana.com</li>
+                      <li>Network: Internet Computer (Mainnet)</li>
+                      <li>Canister ID: [Your Canister ID]</li>
+                      <li>Block Explorer: dashboard.internetcomputer.org</li>
                     </ul>
                   </li>
-                  <li><strong>Solana Wallet Integration:</strong>
+                  <li><strong>Wallet Integration:</strong>
                     <ul className="list-disc pl-5 mt-1">
-                      <li>Phantom, Solflare, Backpack, and other popular Solana wallet support</li>
-                      <li>Seamless connection to Solana devnet and mainnet</li>
-                      <li>Real-time SOL balance and transaction monitoring</li>
+                      <li>Internet Identity and other popular Internet Computer wallet support</li>
+                      <li>Seamless connection to Internet Computer network</li>
+                      <li>Real-time ICP balance and transaction monitoring</li>
                     </ul>
                   </li>
                 </ul>
@@ -511,13 +511,13 @@ export default function Home() {
               <h2 className="text-xl font-bold text-gray-800 mt-6 mb-3">Strategic Advantages</h2>
               <div className="prose prose-sm">
                 <ul className="list-disc pl-5 mb-4">
-                  <li><strong>Solana Exclusivity:</strong> Dedicated focus on the unique dynamics and opportunities within the SOL ecosystem</li>
+                  <li><strong>Internet Computer Exclusivity:</strong> Dedicated focus on the unique dynamics and opportunities within the ICP ecosystem</li>
                   <li><strong>Early Signal Detection:</strong> Proprietary algorithms capable of identifying promising tokens hours or days before mainstream awareness</li>
-                  <li><strong>Integrated Data Intelligence:</strong> Unified analysis combining social indicators with on-chain Solana metrics</li>
+                  <li><strong>Integrated Data Intelligence:</strong> Unified analysis combining social indicators with on-chain Internet Computer metrics</li>
                   <li><strong>Scientific Methodology:</strong> Data-driven approach eliminating emotional decision-making</li>
                   <li><strong>Aligned Success Incentives:</strong> Business model that ensures we win only when our users win</li>
-                  <li><strong>Fast Transaction Speed:</strong> Leveraging Solana's high-speed blockchain for rapid trade execution</li>
-                  <li><strong>Low Transaction Costs:</strong> Minimal fees on Solana network enable frequent trading strategies</li>
+                  <li><strong>Web-Speed Performance:</strong> Leveraging Internet Computer's web-speed blockchain for rapid trade execution</li>
+                  <li><strong>Low Transaction Costs:</strong> Minimal fees on Internet Computer enable frequent trading strategies</li>
                 </ul>
               </div>
 
@@ -545,7 +545,7 @@ export default function Home() {
             style={windowStyle}
           >
             <div 
-              className="bg-gradient-to-r from-solana-purple to-solana-purple-dark text-white p-3 flex justify-between items-center cursor-move"
+              className="bg-gradient-to-r from-icp-teal to-icp-teal-dark text-white p-3 flex justify-between items-center cursor-move"
               onMouseDown={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -577,7 +577,7 @@ export default function Home() {
               <h2 className="text-xl font-bold text-gray-800 mb-2">Connect Your Wallet</h2>
               {connected ? (
                 <div className="space-y-4">
-                  <p className="text-gray-600">Connected to Solana Devnet</p>
+                  <p className="text-gray-600">Connected to Internet Computer</p>
                   <p className="text-gray-600">Address:</p>
                   <p className="font-mono text-sm bg-gray-100 p-2 rounded break-all">
                     {publicKey?.toBase58()}
@@ -591,7 +591,7 @@ export default function Home() {
                 </div>
               ) : (
                 <div className="space-y-4">
-                  <p className="text-gray-600 mb-6">Connect your wallet to Solana devnet to track your memecoin investments</p>
+                  <p className="text-gray-600 mb-6">Connect your wallet to track your memecoin investments on the Internet Computer</p>
                   <div className="flex justify-center">
                     <SolanaWalletButton />
                   </div>

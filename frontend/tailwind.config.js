@@ -12,24 +12,24 @@ module.exports = {
         pulse: 'pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite',
       },
       colors: {
-        solana: {
-          purple: '#9333ea',
-          'purple-light': '#a855f7',
-          'purple-dark': '#7c3aed',
+        icp: {
+          teal: '#29b6af',
+          'teal-light': '#3ddbd9',
+          'teal-dark': '#1e9e98',
           gradient: {
-            start: '#818cf8',
-            end: '#9333ea',
+            start: '#29b6af',
+            end: '#1a7f7a',
           },
-          bg: '#f0f0ff',
-          'bg-light': '#e8e5ff',
-          'bg-dark': '#ddd6fe',
+          bg: '#f0f9f9',
+          'bg-light': '#e0f2f1',
+          'bg-dark': '#b2dfdb',
         },
       },
       backgroundImage: {
-        'solana-gradient': 'linear-gradient(135deg, #818cf8, #9333ea)',
-        'solana-gradient-hover': 'linear-gradient(135deg, #a855f7, #9333ea)',
+        'icp-gradient': 'linear-gradient(135deg, #29b6af, #1a7f7a)',
+        'icp-gradient-hover': 'linear-gradient(135deg, #3ddbd9, #29b6af)',
       },
     },
   },
   plugins: [],
-} 
+}
