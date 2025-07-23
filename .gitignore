@@ -1,0 +1,50 @@
+# Frontend Dependencies
+frontend/node_modules/
+frontend/.pnp
+frontend/.pnp.js
+
+# Frontend Testing
+frontend/coverage/
+
+# Frontend Build Outputs
+frontend/.next/
+frontend/out/
+frontend/.svelte-kit/
+frontend/build/
+frontend/dist/
+
+# Frontend Environment
+frontend/.env
+frontend/.env.local
+frontend/.env.development.local
+frontend/.env.test.local
+frontend/.env.production.local
+
+# Frontend Package Manager
+frontend/package-lock.json
+frontend/yarn.lock
+frontend/pnpm-lock.yaml
+
+# Frontend Cache Directories
+frontend/.cache/
+frontend/.parcel-cache/
+frontend/.svelte-kit/output/
+
+# Frontend Debug Logs
+frontend/npm-debug.log*
+frontend/yarn-debug.log*
+frontend/yarn-error.log*
+
+# Frontend IDE and Editor
+.idea/
+.vscode/
+*.sublime-workspace
+*.sublime-project
+*.code-workspace
+
+# System Files
+.DS_Store
+Thumbs.db
+
+# Keep the public folder
+!frontend/public/
