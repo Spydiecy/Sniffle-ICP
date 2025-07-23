@@ -633,7 +633,7 @@ export default function Home() {
   const renderLandingPage = () => {
       return (
         <div className="flex items-center justify-center min-h-screen p-4">
-          <div className="bg-white/95 rounded-3xl shadow-2xl border border-solana-purple/10 p-8 md:p-12 max-w-md w-full text-center">
+          <div className="bg-white/95 rounded-3xl shadow-2xl border border-purple-600/10 p-8 md:p-12 max-w-md w-full text-center">
             <div className="flex justify-center mb-6">
               <Image 
                 src="/sniffle-logo.png" 
@@ -647,7 +647,7 @@ export default function Home() {
             
             <h1 className="text-3xl font-bold text-gray-800 mb-2">Sniffle AI</h1>
             <p className="text-gray-600 mb-8 md:mb-10 text-sm">
-              An autonomous AI agent that finds trending memecoins on Solana.
+              An autonomous AI agent that finds trending memecoins on ICP.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -661,7 +661,7 @@ export default function Home() {
                   openMultipleWindows([]);
                 }, 100);
                 }}
-                className="px-6 md:px-8 py-3 bg-solana-gradient text-white rounded-lg font-medium hover:bg-solana-gradient-hover transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/30"
+                className="px-6 md:px-8 py-3 bg-primary-gradient text-white rounded-lg font-medium hover:bg-primary-gradient-hover transition-all duration-300 transform hover:scale-105 shadow-lg hover:shadow-purple-500/30"
               >
                 Get Started
               </button>
@@ -709,8 +709,8 @@ export default function Home() {
                 }}
                 className={`p-2 rounded-lg transition-colors shadow-lg flex items-center ${
                   openWindows.some(w => w.id === 'whitepaper')
-                    ? 'bg-solana-purple text-white shadow-solana-purple/50'
-                    : 'bg-white text-gray-700 hover:bg-purple-50 hover:text-solana-purple'
+                    ? 'bg-purple-600 text-white shadow-purple-500/50'
+                    : 'bg-white text-gray-700 hover:bg-purple-50 hover:text-purple-600'
                 }`}
                 title="Whitepaper"
               >
@@ -735,8 +735,8 @@ export default function Home() {
                   }}
                   className={`w-14 h-14 flex items-center justify-center rounded-xl transition-all duration-200 shadow-lg ${
                     openWindows.some(w => w.id === item.id)
-                      ? 'bg-solana-purple text-white scale-110 shadow-solana-purple/50'
-                      : 'bg-white text-gray-700 hover:bg-purple-50 hover:scale-105 hover:text-solana-purple'
+                      ? 'bg-purple-600 text-white scale-110 shadow-purple-500/50'
+                      : 'bg-white text-gray-700 hover:bg-purple-50 hover:scale-105 hover:text-purple-600'
                   }`}
                   title={item.label}
                 >
@@ -768,7 +768,7 @@ export default function Home() {
             {/* Welcome message if no windows are open */}
             {openWindows.length === 0 && (
               <div className="absolute inset-0 flex items-center justify-center">
-                <div className="text-center p-12 bg-white/90 rounded-2xl shadow-lg max-w-md border-2 border-solana-purple">
+                <div className="text-center p-12 bg-white/90 rounded-2xl shadow-lg max-w-md border-2 border-purple-600">
                   <Image 
                     src="/sniffle-logo.png" 
                     alt="Sniffle Logo" 
@@ -777,7 +777,7 @@ export default function Home() {
                     className="mx-auto mb-4" 
                   />
                   <h2 className="text-2xl font-bold text-gray-800 mb-4">Welcome to Sniffle</h2>
-                  <p className="text-gray-600 mb-6">Advanced Memecoin Intelligence for Solana - Click on the menu items on the left to get started</p>
+                  <p className="text-gray-600 mb-6">Advanced Memecoin Intelligence for Internet Computer - Click on the menu items on the left to get started</p>
                 </div>
               </div>
             )}

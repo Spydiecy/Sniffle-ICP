@@ -1,12 +1,12 @@
 # Sniffle Frontend
 
-Advanced Memecoin Intelligence System for Solana with modern wallet integration.
+Advanced Memecoin Intelligence System for Internet Computer with modern wallet integration.
 
 ## Features
 
 - Real-time chat with AI assistant
-- Solana memecoin tracking and analytics
-- Solana wallet connection (Phantom, Solflare, Backpack, Coinbase, etc.)
+- Internet Computer memecoin tracking and analytics
+- Internet Computer wallet connection (Internet Identity, Plug, Stoic, etc.)
 - Memecoin explorer and tracking
 - Responsive UI using Tailwind CSS
 - Dashboard with multiple windows interface
@@ -15,13 +15,10 @@ Advanced Memecoin Intelligence System for Solana with modern wallet integration.
 
 For development and testing purposes, the application connects to:
 
-**Solana Devnet:**
-- Network Name: Solana Devnet
-- RPC URL: https://api.devnet.solana.com
-- Currency Symbol: SOL
-- Block Explorer: https://explorer.solana.com/?cluster=devnet
-
-> **Note:** While the development environment uses Solana devnet for wallet connections, Sniffle is designed to track and analyze memecoins on Solana mainnet in production.
+**Internet Computer:**
+- Network: Internet Computer Mainnet
+- Canister ID: [Your Canister ID]
+- Block Explorer: https://dashboard.internetcomputer.org/
 
 ## Getting Started
 

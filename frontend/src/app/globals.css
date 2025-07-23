@@ -3,13 +3,31 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 26, 26, 26;
-  --background-rgb: 248, 245, 255;
-  --solana-purple: 153, 69, 255;
-  --solana-purple-light: 176, 122, 255;
-  --solana-purple-dark: 123, 43, 249;
-  --solana-gradient-start: 153, 69, 255;
-  --solana-gradient-end: 123, 43, 249;
+  --background: 0 0% 100%;
+  --foreground: 240 10% 3.9%;
+  --card: 0 0% 100%;
+  --card-foreground: 240 10% 3.9%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 240 10% 3.9%;
+  --primary: 262 83% 58%;
+  --primary-foreground: 0 0% 98%;
+  --secondary: 240 4.8% 95.9%;
+  --secondary-foreground: 240 5.9% 10%;
+  --muted: 240 4.8% 95.9%;
+  --muted-foreground: 240 3.8% 46.1%;
+  --accent: 240 4.8% 95.9%;
+  --accent-foreground: 240 5.9% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 0 0% 98%;
+  --border: 240 5.9% 90%;
+  --input: 240 5.9% 90%;
+  --ring: 262 83% 58%;
+  --radius: 0.5rem;
+  --primary-purple: 262, 83%, 58%;
+  --primary-purple-light: 271, 91%, 65%;
+  --primary-purple-dark: 251, 74%, 50%;
+  --gradient-start: 262, 83%, 58%;
+  --gradient-end: 251, 74%, 50%;
 }
 
 @theme inline {
@@ -27,8 +45,8 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
-  background: rgb(var(--background-rgb));
+  color: hsl(var(--foreground));
+  background: hsl(var(--background));
   font-family: 'Inter', sans-serif;
 }
 
@@ -36,19 +54,28 @@ body {
 .dashboard-bg {
   background: linear-gradient(135deg, #f8f5ff 0%, #e9e0ff 50%, #d0bfff 100%);
   background-image: 
-    linear-gradient(rgba(153, 69, 255, 0.1) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(153, 69, 255, 0.1) 1px, transparent 1px);
+    linear-gradient(rgba(var(--primary-purple), 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--primary-purple), 0.1) 1px, transparent 1px);
   background-size: 40px 40px;
+}
+
+/* Primary gradient button */
+.bg-primary-gradient {
+  background: linear-gradient(135deg, rgb(var(--gradient-start)), rgb(var(--gradient-end)));
+}
+
+.bg-primary-gradient-hover {
+  background: linear-gradient(135deg, rgba(var(--gradient-start), 0.9), rgba(var(--gradient-end), 0.9));
 }
 
 /* Button styles */
 .btn-primary {
-  background: linear-gradient(135deg, rgb(var(--solana-gradient-start)), rgb(var(--solana-purple)));
+  background: linear-gradient(135deg, rgb(var(--gradient-start)), rgb(var(--gradient-end)));
   transition: all 0.3s ease;
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, rgb(var(--icp-teal-light)), rgb(var(--icp-teal)));
+  background: linear-gradient(135deg, rgba(var(--gradient-start), 0.9), rgba(var(--gradient-end), 0.9));
   transform: translateY(-1px);
   box-shadow: 0 10px 25px rgba(41, 182, 175, 0.3);
 }

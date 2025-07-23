@@ -188,15 +188,16 @@ export default function ChatInterface({ fullPage = false }: ChatInterfaceProps) 
   return (
     <div className={`flex flex-col ${containerHeight} max-w-none mx-0 rounded-none shadow-none overflow-hidden border-0 bg-white`}>
       {!fullPage && (
-        <div className="bg-solana-purple text-white p-4 flex items-center justify-between">
-          <div className="flex items-center">          <div className="flex-shrink-0 mr-3">
-            <Image 
-              src="/sniffle-logo.png" 
-              alt="Sniffle Logo" 
-              width={32} 
-              height={32}
-            />
-          </div>
+        <div className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-4 flex items-center justify-between">
+          <div className="flex items-center">
+            <div className="flex-shrink-0 mr-3">
+              <Image 
+                src="/sniffle-logo.png" 
+                alt="Sniffle Logo" 
+                width={32} 
+                height={32}
+              />
+            </div>
             <div>
               <h1 className="text-xl font-semibold">Sniffle Assistant</h1>
               <p className="text-sm opacity-75">
@@ -236,7 +237,7 @@ export default function ChatInterface({ fullPage = false }: ChatInterfaceProps) 
             >
               <div className={`flex items-start max-w-[80%] ${msg.type === 'user' ? 'flex-row-reverse' : 'flex-row'}`}>
                 <div className={`flex-shrink-0 h-8 w-8 rounded-full flex items-center justify-center ${
-                  msg.type === 'user' ? 'bg-solana-purple ml-2' : 'bg-purple-600 mr-2'
+                  msg.type === 'user' ? 'bg-purple-600 ml-2' : 'bg-purple-700 mr-2'
                 }`}>
                   {msg.type === 'user' ? (
                     <FaUser className="text-white text-sm" />
@@ -247,7 +248,7 @@ export default function ChatInterface({ fullPage = false }: ChatInterfaceProps) 
                 <div
                   className={`rounded-lg p-3 ${
                     msg.type === 'user'
-                      ? 'bg-solana-purple text-white'
+                      ? 'bg-purple-600 text-white'
                       : 'bg-white text-gray-800 border border-purple-200 shadow-sm'
                   }`}
                 >
@@ -295,7 +296,7 @@ export default function ChatInterface({ fullPage = false }: ChatInterfaceProps) 
             onKeyPress={handleKeyPress}
             placeholder={isConnected ? "Ask about memecoins, trends, or market insights..." : "Connecting..."}
             disabled={!isConnected}
-            className="flex-1 p-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-solana-purple resize-none h-12 max-h-32 min-h-[3rem] text-gray-800"
+            className="flex-1 p-3 border border-purple-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-600 resize-none h-12 max-h-32 min-h-[3rem] text-gray-800"
             rows={1}
           />
           <button
@@ -313,7 +314,7 @@ export default function ChatInterface({ fullPage = false }: ChatInterfaceProps) 
           <button
             onClick={sendMessage}
             disabled={!isConnected || !input.trim()}
-            className="p-3 bg-solana-purple text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
+            className="p-3 bg-purple-600 text-white rounded-lg hover:bg-purple-700 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors"
           >
             <IoSendSharp className="text-xl" />
           </button>

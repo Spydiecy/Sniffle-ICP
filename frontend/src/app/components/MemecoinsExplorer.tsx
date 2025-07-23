@@ -182,8 +182,8 @@ export default function MemecoinsExplorer() {
 
   return (
     <>
-      {/* Solana Purple Header Bar */}
-      <div className="bg-purple-600 text-white rounded-t-xl px-6 py-4 flex items-center justify-between">
+      {/* Explorer Header Bar */}
+      <div className="bg-gradient-to-r from-purple-600 to-purple-800 text-white rounded-t-xl px-6 py-4 flex items-center justify-between">
         <div>
           <h2 className="text-2xl font-bold">Memecoin Explorer</h2>
           <p className="text-base opacity-90">Discover trending memecoins with Sniffle AI intelligence</p>
