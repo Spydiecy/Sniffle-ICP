@@ -1,5 +1,5 @@
 {
-  "name": "sniffle-solana-frontend",
+  "name": "sniffle-icp-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -9,11 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "@solana/wallet-adapter-base": "^0.9.27",
-    "@solana/wallet-adapter-react": "^0.15.39",
-    "@solana/wallet-adapter-react-ui": "^0.9.39",
-    "@solana/wallet-adapter-wallets": "^0.19.37",
-    "@solana/web3.js": "^1.98.2",
+    "@dfinity/agent": "^3.0.1",
+    "@dfinity/auth-client": "^3.0.1",
+    "@dfinity/identity": "^3.0.1",
+    "@dfinity/principal": "^3.0.1",
     "@tanstack/react-query": "^5.81.5",
     "cross-fetch": "^4.0.0",
     "debug": "^4.4.1",

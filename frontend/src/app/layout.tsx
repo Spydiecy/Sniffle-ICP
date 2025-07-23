@@ -1,24 +1,13 @@
 'use client';
 
 import 'cross-fetch/polyfill';
-
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import '@solana/wallet-adapter-react-ui/styles.css';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ConnectionProvider, WalletProvider } from '@solana/wallet-adapter-react';
-import { WalletModalProvider } from '@solana/wallet-adapter-react-ui';
-import { endpoint, wallets } from '../solana';
-import { useState } from 'react';
+import { AuthClient } from '@dfinity/auth-client';
+import { useState, useEffect } from 'react';
 
 const inter = Inter({ subsets: ["latin"] });
-
-// Moved metadata to a separate file since this is now a client component
-// export const metadata: Metadata = {
-//   title: "Sniffle - Advanced Memecoin Intelligence",
-//   description: "Discover emerging meme tokens on Solana before significant price movements",
-// };
 
 export default function RootLayout({
   children,
@@ -27,18 +16,44 @@ export default function RootLayout({
 }>) {
   const [queryClient] = useState(() => new QueryClient());
 
+  // Initialize auth client
+  const [authClient, setAuthClient] = useState<AuthClient | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
+
+  useEffect(() => {
+    const initAuth = async () => {
+      try {
+        const client = await AuthClient.create();
+        setAuthClient(client);
+      } catch (error) {
+        console.error('Failed to initialize auth client:', error);
+      } finally {
+        setIsInitialized(true);
+      }
+    };
+
+    initAuth();
+  }, []);
+
+  if (!isInitialized) {
+    return (
+      <html lang="en">
+        <body className={`${inter.className} flex items-center justify-center min-h-screen`}>
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-purple-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Initializing...</p>
+          </div>
+        </body>
+      </html>
+    );
+  }
+
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ConnectionProvider endpoint={endpoint}>
-          <WalletProvider wallets={wallets} autoConnect>
-            <WalletModalProvider>
-              <QueryClientProvider client={queryClient}>
-                {children}
-              </QueryClientProvider>
-            </WalletModalProvider>
-          </WalletProvider>
-        </ConnectionProvider>
+        <QueryClientProvider client={queryClient}>
+          {children}
+        </QueryClientProvider>
       </body>
     </html>
   );

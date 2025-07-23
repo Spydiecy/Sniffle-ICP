@@ -3,11 +3,11 @@
 import { useState, useRef, useEffect } from 'react';
 import Image from 'next/image';
 import { FaTimes, FaDog, FaChartLine, FaWallet, FaFileAlt, FaComments, FaChartBar, FaPlug, FaExpand } from 'react-icons/fa';
-// Temporarily using Solana wallet adapter until ICP wallet is implemented
-import { useWallet } from '@solana/wallet-adapter-react';
+import { AuthClient } from '@dfinity/auth-client';
+import { Principal } from '@dfinity/principal';
 import ChatInterface from './components/ChatInterface';
 import MemecoinsExplorer from './components/MemecoinsExplorer';
-import SolanaWalletButton from './components/SolanaWalletButton';
+import IcpWalletButton from './components/IcpWalletButton';
 
 // Window position interface
 interface WindowPosition {
@@ -30,7 +30,8 @@ interface OpenWindow {
 }
 
 export default function Home() {
-  const { connected, publicKey, disconnect } = useWallet(); 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [principal, setPrincipal] = useState<string | null>(null);
   const [appStarted, setAppStarted] = useState(false);
   const [chatMode, setChatMode] = useState(false);
   const [openWindows, setOpenWindows] = useState<OpenWindow[]>([]);
@@ -575,28 +576,12 @@ export default function Home() {
                 className="mx-auto mb-4" 
               />
               <h2 className="text-xl font-bold text-gray-800 mb-2">Connect Your Wallet</h2>
-              {connected ? (
-                <div className="space-y-4">
-                  <p className="text-gray-600">Connected to Internet Computer</p>
-                  <p className="text-gray-600">Address:</p>
-                  <p className="font-mono text-sm bg-gray-100 p-2 rounded break-all">
-                    {publicKey?.toBase58()}
-                  </p>
-                  <button 
-                    onClick={() => disconnect()}
-                    className="px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-lg font-semibold transition-colors"
-                  >
-                    Disconnect
-                  </button>
+              <div className="space-y-4">
+                <p className="text-gray-600 mb-6">Connect your wallet to track your memecoin investments on the Internet Computer</p>
+                <div className="flex justify-center">
+                  <IcpWalletButton />
                 </div>
-              ) : (
-                <div className="space-y-4">
-                  <p className="text-gray-600 mb-6">Connect your wallet to track your memecoin investments on the Internet Computer</p>
-                  <div className="flex justify-center">
-                    <SolanaWalletButton />
-                  </div>
-                </div>
-              )}
+              </div>
             </div>
             {/* Resize handle */}
             <div 
@@ -735,7 +720,7 @@ export default function Home() {
 
               {/* Connect Button */}
               <div className="p-2 rounded-lg shadow-lg bg-white">
-                <SolanaWalletButton />
+                <IcpWalletButton />
               </div>
             </div>
 
