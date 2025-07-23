@@ -241,12 +241,12 @@ export default function Home() {
             style={windowStyle}
           >
             <div 
-              className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-3 flex justify-between items-center cursor-move select-none"
+              className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-3 flex justify-between items-center cursor-move select-none rounded-t-lg"
               onMouseDown={(e) => startDrag(e, id)}
             >
-              <div className="flex items-center">
-                <FaDog className="mr-2" />
-                <h2 className="text-xl font-bold">Dashboard</h2>
+              <div className="flex items-center text-white">
+                <FaDog className="mr-2 text-white" />
+                <h2 className="text-lg font-bold text-white">Dashboard</h2>
               </div>
               <button 
                 onClick={(e) => {
@@ -298,7 +298,7 @@ export default function Home() {
             }}
           >
             <div 
-              className="bg-gradient-to-r from-icp-teal to-icp-teal-dark text-white p-3 flex justify-between items-center cursor-move"
+              className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-3 flex justify-between items-center cursor-move select-none rounded-t-lg"
               onMouseDown={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -306,8 +306,8 @@ export default function Home() {
               }}
             >
               <div className="flex items-center">
-                <FaComments className="mr-2" />
-                <h2 className="text-xl font-bold">Chat</h2>
+                <FaComments className="mr-2 text-white" />
+                <h2 className="text-lg font-bold text-white">Chat</h2>
               </div>
               <button 
                 onClick={(e) => {
@@ -346,12 +346,12 @@ export default function Home() {
             style={windowStyle}
           >
             <div 
-              className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-3 flex justify-between items-center cursor-move select-none"
+              className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-3 flex justify-between items-center cursor-move select-none rounded-t-lg"
               onMouseDown={(e) => startDrag(e, id)}
             >
-              <div className="flex items-center">
-                <FaChartLine className="mr-2" />
-                <h2 className="text-xl font-bold">Memecoins</h2>
+              <div className="flex items-center text-white">
+                <FaChartLine className="mr-2 text-white" />
+                <h2 className="text-lg font-bold text-white">Memecoins</h2>
               </div>
               <button 
                 onClick={(e) => {
@@ -385,12 +385,12 @@ export default function Home() {
             style={windowStyle}
           >
             <div 
-              className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-3 flex justify-between items-center cursor-move select-none"
+              className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-3 flex justify-between items-center cursor-move select-none rounded-t-lg"
               onMouseDown={(e) => startDrag(e, id)}
             >
-              <div className="flex items-center">
-                <FaChartBar className="mr-2" />
-                <h2 className="text-xl font-bold">Statistics</h2>
+              <div className="flex items-center text-white">
+                <FaChartBar className="mr-2 text-white" />
+                <h2 className="text-lg font-bold text-white">Statistics</h2>
               </div>
               <button 
                 onClick={(e) => {
