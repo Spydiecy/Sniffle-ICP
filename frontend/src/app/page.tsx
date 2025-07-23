@@ -432,7 +432,7 @@ export default function Home() {
             style={windowStyle}
           >
             <div 
-              className="bg-gradient-to-r from-icp-teal to-icp-teal-dark text-white p-3 flex justify-between items-center cursor-move"
+              className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-3 flex justify-between items-center cursor-move"
               onMouseDown={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -546,7 +546,7 @@ export default function Home() {
             style={windowStyle}
           >
             <div 
-              className="bg-gradient-to-r from-icp-teal to-icp-teal-dark text-white p-3 flex justify-between items-center cursor-move"
+              className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-3 flex justify-between items-center cursor-move"
               onMouseDown={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
