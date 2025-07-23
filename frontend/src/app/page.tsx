@@ -38,8 +38,10 @@ export default function Home() {
   const [nextZIndex, setNextZIndex] = useState(10);
   const [dragging, setDragging] = useState<string | null>(null);
   const [resizing, setResizing] = useState<string | null>(null);
-  const [dragOffset, setDragOffset] = useState<WindowPosition>({ x: 0, y: 0 });
-  const [resizeStart, setResizeStart] = useState<{start: WindowPosition, size: WindowSize} | null>(null);
+  const [startPos, setStartPos] = useState<{x: number, y: number} | null>(null);
+  const [startWindowPos, setStartWindowPos] = useState<{x: number, y: number} | null>(null);
+  const [resizeStart, setResizeStart] = useState<{width: number, height: number} | null>(null);
+  const [dragOffset, setDragOffset] = useState<{x: number, y: number}>({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
 
   const menuItems = [
@@ -114,15 +116,12 @@ export default function Home() {
     e.preventDefault();
     e.stopPropagation();
     
-    // Find the window
-    const window = openWindows.find(w => w.id === id);
+    const window = getWindowByID(id);
     if (!window) return;
     
-    // Calculate the offset between mouse position and window position
-    const offsetX = e.clientX - window.position.x;
-    const offsetY = e.clientY - window.position.y;
-    
-    setDragOffset({ x: offsetX, y: offsetY });
+    // Store the initial mouse position and window position
+    setStartPos({ x: e.clientX, y: e.clientY });
+    setStartWindowPos({ x: window.position.x, y: window.position.y });
     setDragging(id);
     bringToFront(id);
   };
@@ -131,28 +130,28 @@ export default function Home() {
     e.preventDefault();
     e.stopPropagation();
     
-    // Find the window
-    const window = openWindows.find(w => w.id === id);
+    const window = getWindowByID(id);
     if (!window) return;
     
+    setStartPos({ x: e.clientX, y: e.clientY });
     setResizeStart({
-      start: { x: e.clientX, y: e.clientY },
-      size: window.size
+      width: window.size.width,
+      height: window.size.height
     });
     setResizing(id);
     bringToFront(id);
   };
 
   const onDrag = (e: MouseEvent) => {
-    if (!dragging) return;
+    if (!dragging || !startPos || !startWindowPos) return;
     
     setOpenWindows(prevWindows => prevWindows.map(window => {
       if (window.id === dragging) {
         return {
           ...window,
           position: {
-            x: e.clientX - dragOffset.x,
-            y: e.clientY - dragOffset.y
+            x: startWindowPos.x + (e.clientX - startPos.x),
+            y: startWindowPos.y + (e.clientY - startPos.y)
           }
         };
       }
@@ -161,18 +160,18 @@ export default function Home() {
   };
 
   const onResize = (e: MouseEvent) => {
-    if (!resizing || !resizeStart) return;
+    if (!resizing || !resizeStart || !startPos) return;
     
-    const deltaX = e.clientX - resizeStart.start.x;
-    const deltaY = e.clientY - resizeStart.start.y;
+    const deltaX = e.clientX - startPos.x;
+    const deltaY = e.clientY - startPos.y;
     
     setOpenWindows(prevWindows => prevWindows.map(window => {
       if (window.id === resizing) {
         return {
           ...window,
           size: {
-            width: Math.max(300, resizeStart.size.width + deltaX),
-            height: Math.max(200, resizeStart.size.height + deltaY)
+            width: Math.max(300, resizeStart.width + deltaX),
+            height: Math.max(200, resizeStart.height + deltaY)
           }
         };
       }
@@ -227,11 +226,12 @@ export default function Home() {
       top: `${windowData.position.y}px`,
       width: `${windowData.size.width}px`,
       height: id === 'chat' ? `${windowData.size.height}px` : 'auto',
-      zIndex: windowData.zIndex
+      zIndex: windowData.zIndex,
+      transition: dragging === id || resizing === id ? 'none' : 'all 0.2s ease-out'
     };
 
     const isActive = activeWindowId === id;
-    const activeClass = isActive ? 'ring-2 ring-icp-purple' : '';
+    const activeClass = isActive ? 'ring-2 ring-purple-500' : '';
 
     switch(id) {
       case 'dashboard':
@@ -241,7 +241,7 @@ export default function Home() {
             style={windowStyle}
           >
             <div 
-              className="bg-gradient-to-r from-icp-teal to-icp-teal-dark text-white p-3 flex justify-between items-center cursor-move"
+              className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-3 flex justify-between items-center cursor-move select-none"
               onMouseDown={(e) => startDrag(e, id)}
             >
               <div className="flex items-center">
@@ -346,7 +346,7 @@ export default function Home() {
             style={windowStyle}
           >
             <div 
-              className="bg-gradient-to-r from-icp-teal to-icp-teal-dark text-white p-3 flex justify-between items-center cursor-move"
+              className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-3 flex justify-between items-center cursor-move select-none"
               onMouseDown={(e) => startDrag(e, id)}
             >
               <div className="flex items-center">
@@ -385,7 +385,7 @@ export default function Home() {
             style={windowStyle}
           >
             <div 
-              className="bg-gradient-to-r from-icp-teal to-icp-teal-dark text-white p-3 flex justify-between items-center cursor-move"
+              className="bg-gradient-to-r from-purple-600 to-purple-800 text-white p-3 flex justify-between items-center cursor-move select-none"
               onMouseDown={(e) => startDrag(e, id)}
             >
               <div className="flex items-center">
