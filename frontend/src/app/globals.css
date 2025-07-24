@@ -26,8 +26,9 @@
   --primary-purple: 262, 83%, 58%;
   --primary-purple-light: 271, 91%, 65%;
   --primary-purple-dark: 251, 74%, 50%;
-  --gradient-start: 262, 83%, 58%;
-  --gradient-end: 251, 74%, 50%;
+  /* ✅ FIXED: Use HSL format properly */
+  --gradient-start: 262 83% 58%;
+  --gradient-end: 251 74% 50%;
 }
 
 @theme inline {
@@ -59,23 +60,29 @@ body {
   background-size: 40px 40px;
 }
 
-/* Primary gradient button */
+/* ✅ FIXED: Primary gradient classes */
 .bg-primary-gradient {
-  background: linear-gradient(135deg, rgb(var(--gradient-start)), rgb(var(--gradient-end)));
+  background: linear-gradient(135deg, hsl(var(--gradient-start)), hsl(var(--gradient-end)));
 }
 
-.bg-primary-gradient-hover {
-  background: linear-gradient(135deg, rgba(var(--gradient-start), 0.9), rgba(var(--gradient-end), 0.9));
+.bg-primary-gradient:hover {
+  background: linear-gradient(135deg, hsl(var(--gradient-start) / 0.9), hsl(var(--gradient-end) / 0.9));
 }
 
-/* Button styles */
+/* Alternative: More specific button styles */
 .btn-primary {
-  background: linear-gradient(135deg, rgb(var(--gradient-start)), rgb(var(--gradient-end)));
+  background: linear-gradient(135deg, hsl(var(--gradient-start)), hsl(var(--gradient-end)));
   transition: all 0.3s ease;
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transform: translateY(0);
+  box-shadow: 0 4px 15px rgba(147, 51, 234, 0.3);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(135deg, rgba(var(--gradient-start), 0.9), rgba(var(--gradient-end), 0.9));
+  background: linear-gradient(135deg, hsl(var(--gradient-start) / 0.9), hsl(var(--gradient-end) / 0.9));
   transform: translateY(-1px);
-  box-shadow: 0 10px 25px rgba(41, 182, 175, 0.3);
+  box-shadow: 0 10px 25px rgba(147, 51, 234, 0.4);
 }
