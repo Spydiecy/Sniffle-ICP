@@ -1,5 +1,8 @@
-// Updated interfaces to match AI analyzer output
-interface TokenCoin {
+// services/TokenData.ts
+'use client';
+
+// Keep all your existing interfaces - they're perfect
+export interface TokenCoin {
   name: string;
   symbol: string;
   symbol1: string;
@@ -16,29 +19,28 @@ interface TokenCoin {
   href: string;
 }
 
-interface TokenDataResponse {
+export interface TokenDataResponse {
   data: TokenCoin[];
 }
 
-// Updated AI analyzer token interface to match actual output
-interface AIAnalyzerToken {
+export interface AIAnalyzerToken {
   id: number;
   symbol: string;
   symbol1: string;
-  price: number;                    // AI analyzer outputs number
+  price: number;
   volume: string;
   marketCap: string;
-  change24h: number;                // AI analyzer outputs number
+  change24h: number;
   age: string;
   favorite: boolean;
-  potential: number;                // AI analyzer uses 'potential', not 'investmentPotential'
-  investmentPotential?: number;     // API server adds this for compatibility
+  potential: number;
+  investmentPotential?: number;
   risk: number;
   href: string;
-  rationale?: string;               // API server might add this
+  rationale?: string;
 }
 
-interface AIAnalyzerResponse {
+export interface AIAnalyzerResponse {
   data: AIAnalyzerToken[];
 }
 
@@ -57,89 +59,59 @@ export interface FormattedMemecoin {
   href: string;
 }
 
-// Function to parse price strings, handling various formats
+// Keep all your helper functions exactly as they are
 const parsePrice = (priceStr: string | number): number => {
-  // If already a number, return it
   if (typeof priceStr === 'number') return priceStr;
-  
-  // Handle string conversion
   if (!priceStr || priceStr === 'N/A' || priceStr === '') return 0;
-  
-  // Remove commas and any non-numeric characters except dots and minus
   const cleaned = String(priceStr).replace(/,/g, '').replace(/[^\d.-]/g, '');
-  
-  // Parse the cleaned string
   const price = parseFloat(cleaned);
-  
-  // If parsing fails or results in NaN, return 0
   return isNaN(price) ? 0 : price;
 };
 
-// Function to parse percentage change
 const parseChange = (changeStr: string | number): number => {
-  // If already a number, return it
   if (typeof changeStr === 'number') return changeStr;
-  
   if (!changeStr || changeStr === 'N/A' || changeStr === '') return 0;
-  
-  // Extract the number and remove the % sign and other characters
   const cleaned = String(changeStr).replace(/[^\d.-]/g, '');
-  
-  // Parse the cleaned string
   const change = parseFloat(cleaned);
-  
-  // If parsing fails or results in NaN, return 0
   return isNaN(change) ? 0 : change;
 };
 
-// Function to determine risk score based on price volatility and other factors (fallback)
 const calculateRisk = (price: number, changeStr: string | number): number => {
   const change = parseChange(changeStr);
-  // Higher volatility means higher risk
-  const volatilityRisk = Math.min(Math.abs(change) / 20, 10); // Scale volatility
-  // Very low-priced coins are generally riskier
+  const volatilityRisk = Math.min(Math.abs(change) / 20, 10);
   const priceRisk = price < 0.000001 ? 9 : price < 0.00001 ? 8 : price < 0.0001 ? 7 : price < 0.001 ? 6 : price < 0.01 ? 5 : 3;
-  // Return weighted average
   return Math.min(Math.round((volatilityRisk * 0.4 + priceRisk * 0.6)), 10);
 };
 
-// Function to determine potential score (fallback)
 const calculatePotential = (price: number, changeStr: string | number): number => {
   const change = parseChange(changeStr);
-  // Coins with positive recent changes have higher potential
   const changePotential = change > 50 ? 9 : change > 20 ? 8 : change > 10 ? 7 : change > 5 ? 6 : change > 0 ? 5 : 3;
-  // Low-priced coins have higher potential for big percentage moves
   const pricePotential = price < 0.000001 ? 9 : price < 0.00001 ? 8 : price < 0.0001 ? 7 : price < 0.001 ? 6 : price < 0.01 ? 5 : 4;
-  // Return weighted average
   return Math.min(Math.round((changePotential * 0.3 + pricePotential * 0.7)), 10);
 };
 
-// Updated function to process AI analyzer format
+// Keep your data processing functions exactly as they are
 const processAIAnalyzerData = (data: AIAnalyzerToken[]): FormattedMemecoin[] => {
   return data.map((item, index) => {
-    // Ensure all required fields are present and properly typed
     return {
       id: item.id || (index + 1),
       symbol: item.symbol || '',
       symbol1: item.symbol1 || '',
-      price: parsePrice(item.price), // Handle both number and string inputs
+      price: parsePrice(item.price),
       volume: item.volume || 'N/A',
       marketCap: item.marketCap || 'N/A',
-      change24h: parseChange(item.change24h), // Handle both number and string inputs
+      change24h: parseChange(item.change24h),
       age: item.age || 'N/A',
-      favorite: false, // Always start as false, frontend handles favorites
-      // Prefer 'potential' field, fallback to 'investmentPotential' or calculate
+      favorite: false,
       potential: item.potential || item.investmentPotential || calculatePotential(parsePrice(item.price), item.change24h),
-      risk: item.risk || calculateRisk(parsePrice(item.price), item.change24h), // Use AI risk or calculate fallback
+      risk: item.risk || calculateRisk(parsePrice(item.price), item.change24h),
       href: item.href || '#'
     };
   });
 };
 
-// Legacy function to process old token format (kept for backward compatibility)
 const processLegacyTokenData = (data: any[]): FormattedMemecoin[] => {
   return data.map((item, index) => {
-    // Helper function to ensure price is a number
     const ensureNumber = (value: any): number => {
       if (typeof value === 'number') return value;
       if (typeof value === 'string') {
@@ -149,7 +121,6 @@ const processLegacyTokenData = (data: any[]): FormattedMemecoin[] => {
       return 0;
     };
     
-    // Helper function to ensure change is a number
     const ensureChangeNumber = (value: any): number => {
       if (typeof value === 'number') return value;
       if (typeof value === 'string') {
@@ -160,7 +131,6 @@ const processLegacyTokenData = (data: any[]): FormattedMemecoin[] => {
       return 0;
     };
     
-    // Handle legacy format - try to map old structure to new
     const price = ensureNumber(item.price);
     const change24h = ensureChangeNumber(item.change24h || item['change-24h']);
     
@@ -174,7 +144,6 @@ const processLegacyTokenData = (data: any[]): FormattedMemecoin[] => {
       change24h: change24h,
       age: item.age || 'N/A',
       favorite: false,
-      // Use AI scores if available, otherwise calculate
       potential: item.investmentPotential || item.potential || calculatePotential(price, change24h),
       risk: item.risk || calculateRisk(price, change24h),
       href: item.href || '#'
@@ -182,7 +151,6 @@ const processLegacyTokenData = (data: any[]): FormattedMemecoin[] => {
   });
 };
 
-// Smart processing function that detects format and processes accordingly
 const processTokenData = (data: any[]): FormattedMemecoin[] => {
   if (!data || data.length === 0) return [];
   
@@ -191,10 +159,7 @@ const processTokenData = (data: any[]): FormattedMemecoin[] => {
     firstItem: data[0] ? Object.keys(data[0]) : 'none'
   });
   
-  // Check if this looks like AI analyzer format
   const firstItem = data[0];
-  
-  // More robust detection - check for AI analyzer specific fields
   const isAIFormat = firstItem && (
     (typeof firstItem.id === 'number' && typeof firstItem.risk === 'number' && typeof firstItem.potential === 'number') ||
     (firstItem.hasOwnProperty('risk') && firstItem.hasOwnProperty('potential'))
@@ -210,16 +175,16 @@ const processTokenData = (data: any[]): FormattedMemecoin[] => {
   }
 };
 
-// Updated fetch function with better error handling and debugging
+// UPDATED: Direct backend call instead of Next.js API route
 export const fetchTokenData = async (forceRefresh: boolean = false): Promise<FormattedMemecoin[]> => {
   try {
-    console.log('🔄 Fetching token data at:', new Date().toISOString());
+    console.log('🔄 Fetching token data directly from backend at:', new Date().toISOString());
     
-    // More aggressive cache busting
     const cacheBuster = `_=${Date.now()}&r=${Math.random()}${forceRefresh ? '&force=1' : ''}`;
-    const url = `/api/token-data?${cacheBuster}`;
+    // Direct call to your backend instead of Next.js API route
+    const url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/token-data?${cacheBuster}`;
     
-    console.log('📡 Fetch URL:', url);
+    console.log('📡 Direct backend fetch URL:', url);
     
     const response = await fetch(url, { 
       cache: 'no-store',
@@ -230,24 +195,23 @@ export const fetchTokenData = async (forceRefresh: boolean = false): Promise<For
       }
     });
     
-    console.log('📊 Response status:', response.status);
+    console.log('📊 Backend response status:', response.status);
     
     if (!response.ok) {
-      console.error('❌ API request failed:', response.status, response.statusText);
+      console.error('❌ Backend request failed:', response.status, response.statusText);
       
-      // Try to get error details
       try {
         const errorData = await response.json();
-        console.error('❌ Error details:', errorData);
+        console.error('❌ Backend error details:', errorData);
       } catch (e) {
-        console.error('❌ Could not parse error response');
+        console.error('❌ Could not parse backend error response');
       }
       
       return [];
     }
     
     const raw = await response.json();
-    console.log('📄 Raw response structure:', {
+    console.log('📄 Backend response structure:', {
       topLevelKeys: Object.keys(raw),
       hasData: Array.isArray(raw.data),
       hasResults: Array.isArray(raw.results),
@@ -255,7 +219,6 @@ export const fetchTokenData = async (forceRefresh: boolean = false): Promise<For
       resultsLength: raw.results?.length || 0,
     });
     
-    // Log first item for debugging
     const firstItem = raw.data?.[0] || raw.results?.[0];
     if (firstItem) {
       console.log('📋 First item structure:', {
@@ -270,7 +233,6 @@ export const fetchTokenData = async (forceRefresh: boolean = false): Promise<For
       });
     }
     
-    // Support multiple response formats
     let tokens: any[] = [];
     
     if (Array.isArray(raw.data)) {
@@ -280,10 +242,10 @@ export const fetchTokenData = async (forceRefresh: boolean = false): Promise<For
       tokens = raw.results;
       console.log('✅ Using raw.results array');
     } else if (Array.isArray(raw)) {
-      tokens = raw; // Direct array response
+      tokens = raw;
       console.log('✅ Using direct array response');
     } else {
-      console.error('❌ No valid token array found in response');
+      console.error('❌ No valid token array found in backend response');
       console.error('Response structure:', raw);
       return [];
     }
@@ -291,7 +253,7 @@ export const fetchTokenData = async (forceRefresh: boolean = false): Promise<For
     console.log(`📈 Tokens found: ${tokens.length}`);
     
     if (!tokens.length) {
-      console.warn('⚠️ No token data found in API response');
+      console.warn('⚠️ No token data found in backend response');
       return [];
     }
     
@@ -309,35 +271,33 @@ export const fetchTokenData = async (forceRefresh: boolean = false): Promise<For
     
     return processed;
   } catch (error) {
-    console.error('💥 Error fetching token data:', error);
+    console.error('💥 Error fetching token data from backend:', error);
     return [];
   }
 };
 
-// Function to force cache invalidation
+// UPDATED: Client-side cache invalidation (no Next.js server features)
 export const invalidateTokenCache = async (): Promise<boolean> => {
   try {
-    const response = await fetch('/api/revalidate', { 
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      }
-    });
+    console.log('🗑️ Client-side cache invalidation - clearing browser cache');
     
-    if (!response.ok) {
-      throw new Error(`Cache invalidation failed: ${response.status}`);
+    // Clear browser cache for our domain
+    if ('caches' in window) {
+      const cacheNames = await caches.keys();
+      await Promise.all(
+        cacheNames.map(cacheName => caches.delete(cacheName))
+      );
     }
     
-    const result = await response.json();
-    console.log('✅ Cache invalidation result:', result);
+    console.log('✅ Browser cache cleared');
     return true;
   } catch (error) {
-    console.error('❌ Failed to invalidate cache:', error);
+    console.error('❌ Failed to clear browser cache:', error);
     return false;
   }
 };
 
-// Utility function to validate token data format
+// Keep all your validation functions exactly as they are
 export const validateTokenData = (data: any[]): { isValid: boolean, format: string, errors: string[] } => {
   const errors: string[] = [];
   
@@ -352,7 +312,6 @@ export const validateTokenData = (data: any[]): { isValid: boolean, format: stri
   
   const firstItem = data[0];
   
-  // Check for AI analyzer format
   if (firstItem.risk !== undefined && firstItem.potential !== undefined) {
     const requiredFields = ['symbol', 'price', 'volume', 'marketCap', 'change24h', 'age', 'potential', 'risk', 'href'];
     const missingFields = requiredFields.filter(field => firstItem[field] === undefined);
@@ -361,7 +320,6 @@ export const validateTokenData = (data: any[]): { isValid: boolean, format: stri
       errors.push(`Missing AI format fields: ${missingFields.join(', ')}`);
     }
     
-    // Check data types
     if (typeof firstItem.risk !== 'number') errors.push('risk should be a number');
     if (typeof firstItem.potential !== 'number') errors.push('potential should be a number');
     if (typeof firstItem.price !== 'number' && typeof firstItem.price !== 'string') errors.push('price should be a number or string');
@@ -373,7 +331,6 @@ export const validateTokenData = (data: any[]): { isValid: boolean, format: stri
     };
   }
   
-  // Check for legacy format
   if (firstItem.symbol !== undefined) {
     return { isValid: true, format: 'Legacy', errors };
   }
@@ -382,14 +339,12 @@ export const validateTokenData = (data: any[]): { isValid: boolean, format: stri
   return { isValid: false, format: 'unknown', errors };
 };
 
-// Helper function to check if data looks like it's from AI analyzer
 export const isAIAnalyzerFormat = (data: any[]): boolean => {
   if (!data || data.length === 0) return false;
   const firstItem = data[0];
   return !!(firstItem.risk !== undefined && firstItem.potential !== undefined);
 };
 
-// Debug function to log data structure
 export const debugTokenData = (data: any): void => {
   console.group('🔍 Token Data Debug');
   console.log('Data type:', typeof data);

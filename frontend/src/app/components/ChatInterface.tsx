@@ -73,8 +73,6 @@ export default function ChatInterface({ fullPage = false }: ChatInterfaceProps) 
     };
   }, []);
 
-  
-
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
@@ -138,7 +136,8 @@ export default function ChatInterface({ fullPage = false }: ChatInterfaceProps) 
     let assistantMsg = '';
     let assistantMsgIdx = -1;
     try {
-      const res = await fetch('/api/agent-proxy', {
+      // ✅ ONLY CHANGE: Direct backend call instead of Next.js API route
+      const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/agent`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ input: messageText })
