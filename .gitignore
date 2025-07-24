@@ -48,3 +48,10 @@ Thumbs.db
 
 # Keep the public folder
 !frontend/public/
+
+backend/node_modules
+backend/dist
+backend/cookies.json
+backend/pnpm-lock.yaml
+
+agent/venv
