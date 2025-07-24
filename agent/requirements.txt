@@ -1,0 +1,5 @@
+python_dotenv
+iointel
+uvicorn
+asyncio
+fastapi
