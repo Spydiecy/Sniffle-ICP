@@ -1,6 +1,7 @@
 {
   "canisters": {
     "frontend": {
+      "build": "pnpm install && pnpm run build",
       "entrypoint": "frontend/out/index.html",
       "source": ["frontend/out"],
       "type": "assets"

@@ -11,6 +11,7 @@ frontend/.next/
 frontend/.svelte-kit/
 frontend/build/
 frontend/dist/
+frontend/out
 
 # Frontend Environment
 frontend/.env
@@ -51,5 +52,8 @@ backend/node_modules
 backend/dist
 backend/cookies.json
 backend/pnpm-lock.yaml
+backend/icp_tokens.json
+backend/tweets.json
+backend/ai_analyzer.json
 
 agent/venv
